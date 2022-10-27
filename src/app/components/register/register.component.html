@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form [formGroup]="registerForm" (submit)="register()">
+                        <div class="mb-3">
+                            <h4 class="text-dark text-muted">Register</h4>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" formControlName="email"
+                                [class.is-invalid]="(email.hasError('required') || email.hasError('invalidEmail')) && email.touched">
+
+                            <div *ngIf="email.hasError('invalidEmail') && email.touched" class="form-text text-muted">
+                                Email must be in the right format!
+                            </div>
+                            <div *ngIf="email.hasError('required') && email.touched" class="form-text text-muted">
+                                This field is required
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" formControlName="password" [class.is-invalid]="password.hasError('required') && password.touched">
+                            <div *ngIf="password.hasError('required') && password.touched" class="form-text text-muted">
+                                This field is required
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info">Register</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="/login" style="text-decoration: none;">Already have account? <span
+                                        class="text-danger">Login</span></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
