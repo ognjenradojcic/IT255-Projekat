@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { CartItem } from 'src/app/shared/models/cart-item.model';
+import { select, Store } from '@ngrx/store';
+import { map, Subscription } from 'rxjs';
+import { Order } from 'src/app/shared/models/order.model';
 import { Product } from 'src/app/shared/models/product.model';
+import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
-import { addItem } from 'src/app/store/cart/cart.actions';
+import { addItem } from 'src/app/store/order/order.actions';
+import { getUser } from 'src/app/store/user/user.reducer';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +19,10 @@ export class ProductComponent implements OnInit {
   id: number;
   product: Product;
   products: any[];
-  constructor(private route: ActivatedRoute, private fbservice: FirebaseService, private store: Store) {
+  uid: string;
+  currentUser: User;
+  subscription: Subscription;
+  constructor(private route: ActivatedRoute, private fbservice: FirebaseService, private store: Store, private auth: AuthService) {
     route.params.subscribe(params => this.id = params['id']);
   }
 
@@ -26,16 +33,29 @@ export class ProductComponent implements OnInit {
         this.product = this.products[this.id];
       }
     })
+    this.subscription = this.store.pipe(select(getUser)).subscribe((item) => {
+      console.log(item);
+      this.fbservice.getUser(item.uid).pipe(map(item => {
+        console.log(item)
+        this.currentUser = item;
+      })).subscribe()
+    })
   }
 
-  addToCart() {
+
+
+  makeOrder() {
     let quantity: number;
     quantity = parseInt(prompt('Enter the quantity:', '1'));
     if (isNaN(quantity)) {
       alert('Invalid input')
       return;
     }
-    this.store.dispatch(addItem({ cartItem: new CartItem(this.product, quantity) }));
+    let order = new Order(this.product, quantity, this.currentUser);
+
+    this.store.dispatch(addItem({ order: order}));
+    this.fbservice.addOrder(Object.assign({}, order));
+    
   }
 
 

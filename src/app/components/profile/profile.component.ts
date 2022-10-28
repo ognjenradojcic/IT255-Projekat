@@ -16,7 +16,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.store.pipe(select(getUser)).subscribe((item) => {
-      this.fbservice.getUser().pipe(map(item => {
+      console.log(item);
+      this.fbservice.getUser(item.uid).pipe(map(item => {
+        console.log(item)
         this.user = item;
       })).subscribe()
     })

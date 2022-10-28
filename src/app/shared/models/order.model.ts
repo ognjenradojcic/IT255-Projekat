@@ -1,17 +1,15 @@
-import { CartItem } from './cart-item.model';
+import { Product } from "./product.model";
+import { User } from "./user.model";
+
 export class Order {
-    key: string;
-    products: CartItem[];
+    id: string;
+    product: Product;
     total: number;
-    user: string;
-    status: string;
-    statusCode: number;
-    constructor(products: CartItem[], total: number, user: string, status?: string, statusCode?: number){
-        this.products = products;
+    user: User;
+    constructor(product: Product, total: number, user: User){
+        this.product = product;
         this.total = total;
         this.user = user;
-        this.status = status;
-        this.statusCode = statusCode;
     }
 }
 

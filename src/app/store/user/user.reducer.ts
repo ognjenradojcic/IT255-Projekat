@@ -17,7 +17,7 @@ const getUserFromStorage = (): UserState => {
             isAuthenticated: true,
             user: {
                 uid: localStorage.getItem('userId'),
-                username: localStorage.getItem('username')
+                username: localStorage.getItem('username'),
             }
         }
     } else {

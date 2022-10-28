@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from "@angular/fire/compat/"
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 import { StoreModule } from '@ngrx/store';
 import { FilterPipe } from './shared/helpers/filter.pipe';
 import { HomeComponent } from './components/home/home.component';
@@ -18,9 +19,17 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductlistComponent } from './components/productlist/productlist.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
-import { cartReducer } from './store/cart/cart.reducer';
+import { orderReducer } from './store/order/order.reducer';
 import { loginReducer } from './store/user/user.reducer';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FirebaseService } from './shared/services/firebase.service';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AddProductComponent } from './admin/add-product/add-product.component';
+import { EditProductComponent } from './admin/edit-product/edit-product.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -33,24 +42,30 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProductComponent,
     ProductlistComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminMenuComponent,
+    AddProductComponent,
+    EditProductComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'OnlineShop'),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    // AngularFireModule.initializeApp(environment.firebase, 'OnlineShop'),
+    // AngularFireAuthModule,
+    // AngularFirestoreModule,
     NgbModule,
     StoreModule.forRoot({
-      cart: cartReducer,
+      order: orderReducer,
       user: loginReducer
     }),
     FormsModule,
     ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

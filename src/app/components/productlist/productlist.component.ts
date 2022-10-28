@@ -2,6 +2,8 @@ import { Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from 
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/shared/models/category.model';
+import { Product } from 'src/app/shared/models/product.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
@@ -11,10 +13,12 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
 })
 export class ProductlistComponent implements OnInit {
   products: any[];
+  isAdmin: boolean;
   @HostBinding('class') classes = "mt-3 container";
   searchText: string;
-  constructor(private fbservice: FirebaseService, private router: Router) { 
+  constructor(private auth: AuthService, private fbservice: FirebaseService, private router: Router) { 
     this.searchText = "";
+    this.isAdmin = this.auth.isAdmin();
   }
 
 
@@ -29,5 +33,13 @@ export class ProductlistComponent implements OnInit {
 
   seeDetails(index: number){
     this.router.navigate(['/products/', index]);
+  }
+
+  edit(index: number){
+    this.router.navigate(['/edit/', index]);
+  }
+
+  delete(product: Product){
+    this.fbservice.deleteProduct(product.id);
   }
 }

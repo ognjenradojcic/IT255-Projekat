@@ -19,6 +19,9 @@
             <li class="nav-item" routerLinkActive="active" *ngIf="isAdmin">
                 <a class="nav-link" [routerLink]="['/admin']">Admin</a>
             </li>
+            <li class="nav-item" *ngIf="isLogged" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/orders']">Orders</a>
+            </li>
             <li class="nav-item" *ngIf="isLogged">
                 <a class="nav-link" href="#" (click)="logout()">Logout</a>
             </li>
