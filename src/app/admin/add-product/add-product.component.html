@@ -1,1 +1,27 @@
-<p>add-product works!</p>
+<div class="container">
+    <h1 class="text-center">Add Product Form</h1>
+    <form [formGroup]="addForm" (submit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" formControlName="description">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image link</label>
+            <input type="text" class="form-control" id="image" formControlName="image">
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" formControlName="category">
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" class="form-control" id="price" formControlName="price">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>

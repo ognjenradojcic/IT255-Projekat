@@ -24,7 +24,6 @@ export class ProductlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.fbservice.getProducts().subscribe((item) => {
-      console.log(item)
       if (item.length > 0) {
         this.products = item;
       }

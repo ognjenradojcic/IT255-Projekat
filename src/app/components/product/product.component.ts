@@ -22,24 +22,25 @@ export class ProductComponent implements OnInit {
   uid: string;
   currentUser: User;
   subscription: Subscription;
-  constructor(private route: ActivatedRoute, private fbservice: FirebaseService, private store: Store, private auth: AuthService) {
+  isLogged: boolean;
+  constructor(private route: ActivatedRoute, private fbservice: FirebaseService, private store: Store, private auth: AuthService ) {
     route.params.subscribe(params => this.id = params['id']);
+    this.isLogged = this.auth.isUserLogged();
   }
 
-  ngOnInit(): void {
-    this.fbservice.getProducts().subscribe((item) => {
+  async ngOnInit() {
+    await this.fbservice.getProducts().subscribe((item) => {
       if (item.length > 0) {
         this.products = item;
         this.product = this.products[this.id];
       }
     })
     this.subscription = this.store.pipe(select(getUser)).subscribe((item) => {
-      console.log(item);
       this.fbservice.getUser(item.uid).pipe(map(item => {
-        console.log(item)
         this.currentUser = item;
       })).subscribe()
     })
+    
   }
 
 

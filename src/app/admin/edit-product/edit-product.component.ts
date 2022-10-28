@@ -24,15 +24,16 @@ export class EditProductComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private fbservice: FirebaseService, private store: Store, private router: Router) {
     route.params.subscribe(params => this.id = params['id']);
+
   }
 
   ngOnInit(): void {
     this.editForm = this.fb.group({
-      'name': ['', Validators.required], 
-      'description': ['', Validators.required], 
-      'image': ['', ],
-      'category': ['', Validators.required], 
-      'price': ['', Validators.required] 
+      'name': ['', Validators.required],
+      'description': ['', Validators.required],
+      'image': ['',],
+      'category': ['', Validators.required],
+      'price': ['', Validators.required]
     })
 
     this.name = this.editForm.controls['name'];
@@ -45,12 +46,20 @@ export class EditProductComponent implements OnInit {
       if (item.length > 0) {
         this.products = item;
         this.product = this.products[this.id];
+        
+        this.name.setValue(this.product.name);
+        this.description.setValue(this.product.description);
+        this.image.setValue(this.product.image);
+        this.category.setValue(this.product.category);
+        this.price.setValue(this.product.price);
       }
     })
+
+
   }
 
-  onSubmit(){
-    if(!this.editForm.valid){
+  onSubmit() {
+    if (!this.editForm.valid) {
       return;
     }
 
@@ -61,7 +70,7 @@ export class EditProductComponent implements OnInit {
     this.product.price = this.price.value;
 
     this.fbservice.updateProduct(this.product);
-    this.router.navigate(['/products/',this.id]);
+    this.router.navigate(['/products/', this.id]);
   }
 
 }

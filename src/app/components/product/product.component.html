@@ -1,10 +1,23 @@
 <div class="d-flex flex-column justify-content-between">
-    <div>
-        <h4 class="text-center">{{product.name}}</h4>
-        <p>{{product.description}}</p>
+    <div py-3>
+        <h1 class="text-center">Product Info</h1>
+        
     </div>
-    <div>
-        <p>Price: {{product.price}} RSD</p>
-        <button class="btn btn-primary" (click)=makeOrder()>Order</button>
+
+    <div class="row mt-1 justify-content-md-center">
+        <div class="col-lg-4 mb-3">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h4 class="card-title mb-1">{{product?.name}}</h4>
+                </div>
+                
+                <div class="card-body row justify-content-md-center">
+                    <img class="card-img-top img-fluid" max-height="100px" src="{{product?.image}}" alt="We currently don't have image preview">
+                    <p>{{product?.description}}</p>
+                    <p>Price: ${{product?.price}}</p>
+                    <button *ngIf="isLogged" class="btn btn-primary" (click)=makeOrder()>Order</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

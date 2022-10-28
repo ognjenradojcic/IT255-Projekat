@@ -26,7 +26,6 @@ export class OrdersComponent implements OnInit {
       this.fbservice.getUser(item.uid).pipe(map(item => {
         this.currentUser = item;
         this.orders = this.fbservice.getOrderByUser(this.currentUser)
-        console.log(this.orders)
       })).subscribe()
     })
   }

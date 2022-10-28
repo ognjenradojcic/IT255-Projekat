@@ -30,6 +30,7 @@ import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AddProductComponent } from './admin/add-product/add-product.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { OrdersComponent } from './components/orders/orders.component';
     AdminMenuComponent,
     AddProductComponent,
     EditProductComponent,
-    OrdersComponent
+    OrdersComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

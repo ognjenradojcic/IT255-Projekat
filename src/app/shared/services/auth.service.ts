@@ -46,10 +46,11 @@ export class AuthService {
     })
   }
 
-  register(email: string, password: string) {
+  register(firstName: string, lastName: string, adress: string, number: string, email: string, password: string) {
     createUserWithEmailAndPassword(this.auth,email, password).then(value => {
       this.router.navigate(['/login']);
-      this.database.addUser(value.user!.uid, email);
+      
+      this.database.addUser(value.user.uid, firstName, lastName, adress, number, email);
       return true;
     }, err => {
       alert(err.message);

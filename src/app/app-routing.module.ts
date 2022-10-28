@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddProductComponent } from './admin/add-product/add-product.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
@@ -20,8 +22,10 @@ const routes: Routes = [
   {path: 'products', component: ProductlistComponent},
   {path: 'products/:id', component: ProductComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
-  {path: 'edit/:id', component: EditProductComponent, canActivate:[AdminAuthGuardService]},
+  {path: 'editprofile', component: EditProfileComponent, canActivate:[AuthGuardService]},
   {path: 'orders', component: OrdersComponent, canActivate:[AuthGuardService]},
+  {path: 'edit/:id', component: EditProductComponent, canActivate:[AdminAuthGuardService]},
+  {path: 'admin', component: AddProductComponent, canActivate:[AdminAuthGuardService]},
   {path: '**', component: NotfoundComponent},
 ];
 

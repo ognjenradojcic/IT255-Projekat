@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 import { Category } from '../models/category.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
-import { CollectionReference, DocumentData, addDoc, collection, deleteDoc, doc, updateDoc, query, where, getDocs, onSnapshot } from '@firebase/firestore';
+import { CollectionReference, DocumentData, addDoc, collection, deleteDoc, doc, updateDoc, query, where, getDocs, onSnapshot, setDoc } from '@firebase/firestore';
 
 import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
@@ -39,15 +39,21 @@ export class FirebaseService {
     return docData(userDocumentReference, { idField: 'id' }) as Observable<User>;
   }
 
-  addUser(id: string, email: string) {
-    let user = { id: id, email: email };
-    return addDoc(this.userCollection, user);
+  addUser(id: string, firstName: string, lastName: string, adress: string, number: string, email: string) {
+    let user = {
+      firstname: firstName,
+      lastname: lastName,
+      adress: adress,
+      phone: number,
+      username: email,
+    };
+    return setDoc(doc(this.firestore, 'users', `${id}`), user);
   }
 
   updateUser(user: User) {
     const userDocumentReference = doc(
       this.firestore,
-      `users/${user.uid}`
+      `users/${user.id}`
     );
     return updateDoc(userDocumentReference, { ...user });
   }
@@ -112,7 +118,7 @@ export class FirebaseService {
     const q = query(this.orderCollection, where("user", "==", user))
     onSnapshot(q, (snapshot) => {
       snapshot.docs.forEach((doc) => {
-        orders.push({...doc.data(), id: doc.id})
+        orders.push({ ...doc.data(), id: doc.id })
       })
     })
     return orders;
@@ -122,43 +128,4 @@ export class FirebaseService {
     const orderDocumentReference = doc(this.firestore, `orders/${id}`);
     return deleteDoc(orderDocumentReference);
   }
-  
-
-
 }
-
-  // getUsers() {
-  //   return this.firestore.collection('users').valueChanges();
-  // }
-
-  // getUser() {
-  //   return this.firestore.collection('users').doc('');
-  // }
-
-  // addUser(id: string, email: string) {
-  //   const userRef = this.firestore.collection('users');
-  //   const user = { id: id, email: email };
-  //   userRef.add({ ...user });
-  // }
-
-  // updateUser(user: User) {
-  //   const userRef = this.firestore.collection('users');
-  //   userRef.doc(user.uid).update(user);
-  // }
-
-  // deleteUser(user: User) {
-  //   const userRef = this.firestore.collection('users');
-  //   userRef.doc(user.uid).delete();
-  // }
-
-  // getCategories() {
-  //   return this.firestore.collection('categories').valueChanges();
-  // }
-
-  // getProducts() {
-  //   return this.firestore.collection('products').valueChanges();
-  // }
-
-  // getProduct(id: string) {
-  //   return this.firestore.collection('products').doc("BPuW83nLsR2vRhA6fhg5").valueChanges()
-  // }
