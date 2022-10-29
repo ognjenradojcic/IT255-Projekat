@@ -10,9 +10,9 @@
                     <h4 class="card-title mb-1">{{order.product.name}}</h4>
                 </div>
                 <div class="card-body row justify">
-                    <p>Price: {{order.product.price}}</p>
+                    <p>Price: ${{order.product.price}}</p>
                     <p>Quantity: {{order.total}}</p>
-                    <h3>Total price: {{order.product.price * order.total}}</h3>
+                    <h3>Total price: ${{order.product.price * order.total}}</h3>
                     <button (click)="delete(order)" class="btn btn-danger btn-lg">Delete</button>
                 </div>
             </div>

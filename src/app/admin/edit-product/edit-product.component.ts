@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Product } from 'src/app/shared/models/product.model';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { linkValidator } from 'src/app/shared/validator/email-validator.directive';
 
 @Component({
   selector: 'app-edit-product',
@@ -31,7 +32,7 @@ export class EditProductComponent implements OnInit {
     this.editForm = this.fb.group({
       'name': ['', Validators.required],
       'description': ['', Validators.required],
-      'image': ['',],
+      'image': ['', linkValidator],
       'category': ['', Validators.required],
       'price': ['', Validators.required]
     })
@@ -52,9 +53,9 @@ export class EditProductComponent implements OnInit {
         this.image.setValue(this.product.image);
         this.category.setValue(this.product.category);
         this.price.setValue(this.product.price);
+
       }
     })
-
 
   }
 

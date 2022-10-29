@@ -3,23 +3,41 @@
     <form [formGroup]="addForm" (submit)="onSubmit()">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+            <input type="text" class="form-control" id="name" formControlName="name" [class.is-invalid]="name.hasError('required') && name.touched">
+            <div *ngIf="name.hasError('required') && name.touched" class="form-text text-muted">
+                This field is required
+            </div>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <input type="text" class="form-control" id="description" formControlName="description">
+            <input type="text" class="form-control" id="description" formControlName="description" [class.is-invalid]="description.hasError('required') && description.touched">
+            <div *ngIf="description.hasError('required') && description.touched" class="form-text text-muted">
+                This field is required
+            </div>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image link</label>
-            <input type="text" class="form-control" id="image" formControlName="image">
+            <input type="text" class="form-control" id="image" formControlName="image" [class.is-invalid]="(image.hasError('required') || image.hasError('invalidLink')) && image.touched">
+            <div *ngIf="image.hasError('invalidLink') && image.touched" class="form-text text-muted">
+                Link must be in the right format
+            </div>
+            <div *ngIf="image.hasError('required') && image.touched" class="form-text text-muted">
+                This field is required
+            </div>
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <input type="text" class="form-control" id="category" formControlName="category">
+            <input type="text" class="form-control" id="category" formControlName="category" [class.is-invalid]="category.hasError('required') && category.touched">
+            <div *ngIf="category.hasError('required') && category.touched" class="form-text text-muted">
+                This field is required
+            </div>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="text" class="form-control" id="price" formControlName="price">
+            <input type="text" class="form-control" id="price" formControlName="price" [class.is-invalid]="price.hasError('required') && price.touched">
+            <div *ngIf="price.hasError('required') && price.touched" class="form-text text-muted">
+                This field is required
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

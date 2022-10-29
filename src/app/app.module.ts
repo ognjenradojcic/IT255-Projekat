@@ -5,9 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from "@angular/fire/compat/"
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { StoreModule } from '@ngrx/store';
 import { FilterPipe } from './shared/helpers/filter.pipe';
@@ -26,7 +23,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FirebaseService } from './shared/services/firebase.service';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AddProductComponent } from './admin/add-product/add-product.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -44,7 +40,6 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     ProductlistComponent,
     ProfileComponent,
     RegisterComponent,
-    AdminMenuComponent,
     AddProductComponent,
     EditProductComponent,
     OrdersComponent,
@@ -55,9 +50,6 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    // AngularFireModule.initializeApp(environment.firebase, 'OnlineShop'),
-    // AngularFireAuthModule,
-    // AngularFirestoreModule,
     NgbModule,
     StoreModule.forRoot({
       order: orderReducer,

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Product } from 'src/app/shared/models/product.model';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { linkValidator } from 'src/app/shared/validator/email-validator.directive';
 
 @Component({
   selector: 'app-add-product',
@@ -30,7 +31,7 @@ export class AddProductComponent implements OnInit {
     this.addForm = this.fb.group({
       'name': ['', Validators.required], 
       'description': ['', Validators.required], 
-      'image': ['', ],
+      'image': ['', linkValidator],
       'category': ['', Validators.required], 
       'price': ['', Validators.required] 
     })

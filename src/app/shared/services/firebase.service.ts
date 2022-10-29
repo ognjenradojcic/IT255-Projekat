@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { User } from '../models/user.model';
-import { Category } from '../models/category.model';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 import { CollectionReference, DocumentData, addDoc, collection, deleteDoc, doc, updateDoc, query, where, getDocs, onSnapshot, setDoc } from '@firebase/firestore';
 
@@ -17,7 +15,6 @@ import { Order } from '../models/order.model';
 export class FirebaseService {
   private userCollection: CollectionReference<DocumentData>;
   private productCollection: CollectionReference<DocumentData>;
-  private categoryCollection: CollectionReference<DocumentData>;
   private orderCollection: CollectionReference<DocumentData>;
   constructor(private firestore: Firestore) {
 
@@ -91,14 +88,6 @@ export class FirebaseService {
   deleteProduct(id: string) {
     const productDocumentReference = doc(this.firestore, `products/${id}`);
     return deleteDoc(productDocumentReference);
-  }
-
-  //CATEGORIES
-
-  getCategories() {
-    return collectionData(this.categoryCollection, {
-      idField: 'id',
-    }) as Observable<Category[]>;
   }
 
   //ORDERS

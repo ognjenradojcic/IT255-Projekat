@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {  
-    this.items = this.fbservice.getCategories();
   }
 
   logout(){
