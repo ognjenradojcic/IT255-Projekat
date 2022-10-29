@@ -22,8 +22,8 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.pipe(select(getUser)).subscribe((item) => {
-      this.fbservice.getUser(item.uid).pipe(map(item => {
+    this.store.pipe(select(getUser)).subscribe((user) => {
+      this.fbservice.getUser(user.uid).pipe(map(item => {
         this.currentUser = item;
         this.orders = this.fbservice.getOrderByUser(this.currentUser)
       })).subscribe()
@@ -32,6 +32,11 @@ export class OrdersComponent implements OnInit {
 
   delete(order: Order){
     this.fbservice.deleteOrder(order.id);
+    const index = this.orders.indexOf(order)
+    if(index > -1){
+      this.orders.splice(index, 1);
+    };
+    this.ngOnInit();
   }
 
 }
